@@ -1,3 +1,5 @@
+import { pathsToModuleNameMapper } from 'ts-jest';
+
 export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -5,4 +7,7 @@ export default {
   testMatch: ['**/__tests__/**/*.test.ts'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  moduleNameMapper: {
+    prefix: '<rootDir>/src/',
+  },
 };

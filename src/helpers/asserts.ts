@@ -1,6 +1,5 @@
-import { HttpResponse } from '@/main/protocols/http/IResponse';
+import { HttpError, HttpResponse } from '@/main/protocols/http/IResponse';
 import { AppError } from '../validations/errors';
-import { HttpError } from '@/main/protocols/http/IError';
 
 export function isHttpRequestSuccess(
   response: HttpResponse,

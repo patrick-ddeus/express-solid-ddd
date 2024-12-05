@@ -1,17 +1,21 @@
-import { IRepository } from '@/infra/protocols/IRepository';
+import { container, singleton } from 'tsyringe';
 import { User } from '../../entities/User';
-import { singleton } from 'tsyringe';
+import { Repository } from 'typeorm';
+import { AppDataSource } from '@/infra/database/datasource';
+import { IUserRepository } from '../../protocols/IUserRepository';
+import { UserListOne } from '../../usercases/user/list-one';
 
 @singleton()
-export class UserRepository implements IRepository {
-  async listOne<Input = { id: string }, Output = {}>(
-    input: Input,
-  ): Promise<Output> {
-    const user: User = {
-      id: '1',
-      name: 'John Doe',
-      password: 'securepassword',
-    };
-    return user as Output;
+export class UserRepository implements IUserRepository<User> {
+  private repository: Repository<User>;
+
+  constructor() {
+    this.repository = AppDataSource.getRepository(User);
+  }
+
+  async ListOne(input: UserListOne.Input): UserListOne.Output {
+    const user = await this.repository.findOne({ where: { id: +input.id } });
+
+    return user;
   }
 }

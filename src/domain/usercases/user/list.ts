@@ -1,3 +1,1 @@
-export type UserListAll = {
-  
-}
+export type UserListAll = {};
